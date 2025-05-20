@@ -1,0 +1,19 @@
+# Membuka file
+name = input("Masukkan nama file: ")
+if len(name) < 1:
+    name = "mbox-short.txt"
+
+handle = open(name)
+jam_count = dict()
+
+# Membaca setiap baris
+for line in handle:
+    if line.startswith("From "):  # hanya baris dengan 'From ' (ada spasi)
+        bagian = line.split()
+        waktu = bagian[5]  # waktu ada di posisi ke-6, misalnya 09:14:16
+        jam = waktu.split(":")[0]  # ambil bagian jam saja
+        jam_count[jam] = jam_count.get(jam, 0) + 1  # hitung frekuensinya
+
+# Menampilkan hasil secara urut berdasarkan jam
+for k, v in sorted(jam_count.items()):
+    print(k, v)
